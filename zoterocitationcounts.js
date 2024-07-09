@@ -477,7 +477,17 @@ ZoteroCitationCounts = {
 
         return [count, `${apiName}/DOI`];
       } catch (error) {
-        errorMessage = error.message;
+        try {
+          const title = item.getField('title');
+          const count = await this._sendRequest(
+            this._crossrefUrlByTitle(title, "crossref"),
+            this._crossrefCallbackByTitle
+          );
+
+          return [count, `${apiName}/title`];
+        } catch (error) {
+          throw new Error("citationcounts-test");
+        }
       }
 
       // if arxiv is not used, throw errors picked up along the way now.
@@ -501,7 +511,17 @@ ZoteroCitationCounts = {
 
         return [count, `${apiName}/arXiv`];
       } catch (error) {
-        errorMessage = error.message;
+        try {
+          const title = item.getField('title');
+          const count = await this._sendRequest(
+            this._crossrefUrlByTitle(title, "crossref"),
+            this._crossrefCallbackByTitle
+          );
+
+          return [count, `${apiName}/title`];
+        } catch (error) {
+          throw new Error("citationcounts-test");
+        }
       }
 
       // if both no doi and no arxiv id on item
@@ -528,6 +548,14 @@ ZoteroCitationCounts = {
 
   _crossrefUrl: function (id, type) {
     return `https://api.crossref.org/works/${id}/transform/application/vnd.citationstyles.csl+json`;
+  },
+
+  _crossrefUrlByTitle: function (title, type) {
+    return `https://api.crossref.org/works?query.title=${encodeURIComponent(title)}`;
+  },
+
+  _crossrefCallbackByTitle: function (response) {
+    return response['message']['items'][0]["is-referenced-by-count"];
   },
 
   _crossrefCallback: function (response) {
