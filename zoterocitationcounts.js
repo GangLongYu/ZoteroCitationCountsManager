@@ -486,7 +486,7 @@ ZoteroCitationCounts = {
 
           return [count, `${apiName}/title`];
         } catch (error) {
-          throw new Error("citationcounts-test");
+          throw new Error("citationcounts-progresswindow-error-no-title-crossref");
         }
       }
 
@@ -520,7 +520,7 @@ ZoteroCitationCounts = {
 
           return [count, `${apiName}/title`];
         } catch (error) {
-          throw new Error("citationcounts-test");
+          throw new Error("citationcounts-progresswindow-error-no-title-crossref");
         }
       }
 

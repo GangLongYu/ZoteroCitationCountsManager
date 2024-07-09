@@ -13,6 +13,7 @@ citationcounts-progresswindow-finished-headline = Finished getting { $api } cita
 citationcounts-progresswindow-error-no-doi = No DOI field exists on the item.
 citationcounts-progresswindow-error-no-arxiv = No arXiv id found on the item.
 citationcounts-progresswindow-error-no-doi-or-arxiv = No DOI / arXiv ID found on the item.
+citationcounts-progresswindow-error-no-title-crossref = No match by Crossref title.
 citationcounts-progresswindow-error-bad-api-response = Problem accesing the { $api } API.
 citationcounts-progresswindow-error-no-citation-count = { $api } doesn't have a citation count for this item.
 
