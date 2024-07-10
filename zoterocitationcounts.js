@@ -42,7 +42,7 @@ ZoteroCitationCounts = {
         key: "crossref",
         name: "Crossref",
         useDoi: true,
-        useArxiv: false,
+        useArxiv: true,
         methods: {
           urlBuilder: this._crossrefUrl,
           responseCallback: this._crossrefCallback,
@@ -90,9 +90,9 @@ ZoteroCitationCounts = {
   },
 
   icon: function (iconName, hiDPI) {
-    return `chrome://zotero/skin/${iconName}${
+    return this.rootURI + "icons/" + iconName +
       hiDPI ? (Zotero.hiDPI ? "@2x" : "") : ""
-    }.png`;
+    + ".png";
   },
 
   /////////////////////////////////////////////
@@ -181,9 +181,9 @@ ZoteroCitationCounts = {
         api.key === "none"
           ? { "data-l10n-id": "citationcounts-menutools-autoretrieve-api-none" }
           : {
-              "data-l10n-id": "citationcounts-menutools-autoretrieve-api",
-              "data-l10n-args": `{"api": "${api.name}"}`,
-            };
+            "data-l10n-id": "citationcounts-menutools-autoretrieve-api",
+            "data-l10n-args": `{"api": "${api.name}"}`,
+          };
 
       this._injectXULElement(
         document,
@@ -306,14 +306,14 @@ ZoteroCitationCounts = {
       await this.l10n.formatValue("citationcounts-progresswindow-headline", {
         api: api.name,
       }),
-      this.icon("toolbar-advanced-search")
+      this.icon("toolbar-advanced-search") // not compatible in zotero 7?
     );
 
     const progressWindowItems = [];
     const itemTitles = items.map((item) => item.getField("title"));
     itemTitles.forEach((title) => {
       progressWindowItems.push(
-        new progressWindow.ItemProgress(this.icon("spinner-16px"), title)
+        new progressWindow.ItemProgress(this.icon("spinner-16px"), title)// not compatible in zotero 7?
       );
     });
 
@@ -364,12 +364,12 @@ ZoteroCitationCounts = {
 
       this._setCitationCount(item, source, count);
 
-      pwItem.setIcon(this.icon("tick"));
+      // pwItem.setIcon(this.icon("tick"));// not compatible in zotero 7?
       pwItem.setProgress(100);
     } catch (error) {
       pwItem.setError();
       new progressWindow.ItemProgress(
-        this.icon("bullet_yellow"),
+        this.icon("bullet_yellow"),// not compatible in zotero 7?
         await this.l10n.formatValue(error.message, { api: api.name }),
         pwItem
       );
@@ -477,16 +477,18 @@ ZoteroCitationCounts = {
 
         return [count, `${apiName}/DOI`];
       } catch (error) {
-        try {
-          const title = item.getField('title');
-          const count = await this._sendRequest(
-            this._crossrefUrlByTitle(title, "crossref"),
-            this._crossrefCallbackByTitle
-          );
+        if (apiName == 'Crossref') {
+          try {
+            const title = item.getField('title');
+            const count = await this._sendRequest(
+              this._crossrefUrlByTitle(title, "crossref"),
+              this._crossrefCallbackByTitle
+            );
 
-          return [count, `${apiName}/title`];
-        } catch (error) {
-          throw new Error("citationcounts-progresswindow-error-no-title-crossref");
+            return [count, `${apiName}/title`];
+          } catch (error) {
+            errorMessage = error.message;
+          }
         }
       }
 
@@ -511,16 +513,18 @@ ZoteroCitationCounts = {
 
         return [count, `${apiName}/arXiv`];
       } catch (error) {
-        try {
-          const title = item.getField('title');
-          const count = await this._sendRequest(
-            this._crossrefUrlByTitle(title, "crossref"),
-            this._crossrefCallbackByTitle
-          );
+        if (apiName == 'Crossref') {
+          try {
+            const title = item.getField('title');
+            const count = await this._sendRequest(
+              this._crossrefUrlByTitle(title, "crossref"),
+              this._crossrefCallbackByTitle
+            );
 
-          return [count, `${apiName}/title`];
-        } catch (error) {
-          throw new Error("citationcounts-progresswindow-error-no-title-crossref");
+            return [count, `${apiName}/title`];
+          } catch (error) {
+            errorMessage = error.message;
+          }
         }
       }
 

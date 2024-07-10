@@ -11,5 +11,9 @@
       "strict_min_version": "6.999",
       "strict_max_version": "7.0.*"
     }
+  },
+  "icons": {
+    "48": "icons/icon.png",
+    "96": "icons/icon@x2.png"
   }
 }
