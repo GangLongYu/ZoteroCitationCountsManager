@@ -9,13 +9,12 @@ citationcounts-itemmenu-retrieve-api =
 
 ## For the ProgressWindow, showing citation counts retrieval operation status
 citationcounts-progresswindow-headline = 从 { $api } 获取被引用量
-citationcounts-progresswindow-finished-headline = 从 { $api } 完成被引用量获取.
-citationcounts-progresswindow-error-no-doi = 文章信息中不存在Doi条目.
-citationcounts-progresswindow-error-no-arxiv = 文章信息中不存在arXiv id.
-citationcounts-progresswindow-error-no-doi-or-arxiv = 文章信息中不存在Doi条目和arXiv id.
-citationcounts-progresswindow-error-no-title-crossref = Crossref中找不到该文章标题.
-citationcounts-progresswindow-error-bad-api-response = 访问 { $api } API出现问题.
-citationcounts-progresswindow-error-no-citation-count = { $api } 中不存在该文章的被引用量数据.
+citationcounts-progresswindow-finished-headline = 从 { $api } 完成被引用量获取
+citationcounts-progresswindow-error-no-doi = 文章信息中不存在Doi条目
+citationcounts-progresswindow-error-no-arxiv = 文章信息中不存在arXiv id
+citationcounts-progresswindow-error-no-doi-or-arxiv = 文章信息中不存在Doi条目和arXiv id
+citationcounts-progresswindow-error-bad-api-response = 访问 { $api } API出现问题
+citationcounts-progresswindow-error-no-citation-count = { $api } 中不存在该文章的被引用量数据
 
 ## For the "Tools" menu, where the "autoretrieve" preference can be set.
 citationcounts-menutools-autoretrieve-title =
@@ -23,7 +22,7 @@ citationcounts-menutools-autoretrieve-title =
 citationcounts-menutools-autoretrieve-api =
     .label = { $api }
 citationcounts-menutools-autoretrieve-api-none =
-    .label = 否
+    .label = 不获取
 
 ## For the plugins "Preferences" pane.
 citationcounts-preference-pane-label = Citation count

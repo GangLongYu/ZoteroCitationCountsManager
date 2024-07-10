@@ -90,9 +90,9 @@ ZoteroCitationCounts = {
   },
 
   icon: function (iconName, hiDPI) {
-    return this.rootURI + "icons/" + iconName +
+    return `chrome://zotero/skin/${iconName}${
       hiDPI ? (Zotero.hiDPI ? "@2x" : "") : ""
-    + ".png";
+    }.png`;
   },
 
   /////////////////////////////////////////////
@@ -181,9 +181,9 @@ ZoteroCitationCounts = {
         api.key === "none"
           ? { "data-l10n-id": "citationcounts-menutools-autoretrieve-api-none" }
           : {
-            "data-l10n-id": "citationcounts-menutools-autoretrieve-api",
-            "data-l10n-args": `{"api": "${api.name}"}`,
-          };
+              "data-l10n-id": "citationcounts-menutools-autoretrieve-api",
+              "data-l10n-args": `{"api": "${api.name}"}`,
+            };
 
       this._injectXULElement(
         document,
